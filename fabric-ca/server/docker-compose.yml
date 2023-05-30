@@ -1,0 +1,11 @@
+fabric-ca-server:
+  container_name: fabric-ca-server
+  image: hyperledger/fabric-ca:latest
+  command: sh -c 'fabric-ca-server start -b admin:admin'
+  environment:
+    - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+    - FABRIC_CA_SERVER_TLS_ENABLED=true
+  volumes:
+    - "./data:/etc/hyperledger/fabric-ca-server"
+  ports:
+    - "7054:7054"
