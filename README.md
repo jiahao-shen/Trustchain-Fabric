@@ -36,7 +36,7 @@ export FABRIC_CA_CLIENT_HOME=$PWD
 fabric-ca-client enroll -u https://admin:admin@localhost:7054 --tls.certfiles ../server/data/tls-cert.pem -M ca.trustchain.com
 ```
 
-3. 注册Orderer节点和管理员账户
+3. 注册orderer节点和管理员账户
 ```bash
 cd fabric-ca/client
 export FABRIC_CA_CLIENT_HOME=$PWD
@@ -48,7 +48,7 @@ fabric-ca-client register -d --id.name orderer1admin --id.secret Beihang2022 --i
 fabric-ca-client enroll -u https://orderer1admin:Beihang2022@localhost:7054 --tls.certfiles ../server/data/tls-cert.pem --csr.hosts orderer1.trustchain.com -M orderer1admin
 ```
 
-4. 注册Public节点和管理员账户
+4. 注册public节点和管理员账户
 ```bash
 cd fabric-ca/client
 export FABRIC_CA_CLIENT_HOME=$PWD
