@@ -1,4 +1,32 @@
-	# CMC工具使用说明
+# 链结构
+
+组织一：
+
+​	id：public
+
+​	name：public
+
+​	node: 
+
+​		-peer1：192.168.8.140 20201 30301 #20201为RPC端口 30301为P2P端口
+
+​		-peer2：192.168.8.238 20201 30301
+
+组织二：
+
+​	id：buaa
+
+​	name：buaa
+
+​	node：
+
+​		-buaaPeer3：192.168.8.140 20202 30302
+
+​		-buaaPeer4：192.168.8.238 20202 30302
+
+sdk_config主要用组织public进行交易的发布，buaa组织为维护用的隐藏组织，不实际参与链的管理。
+
+# CMC工具使用说明
 
 ## 智能合约相关
 
@@ -8,7 +36,7 @@ go合约必须打包成.7z格式，细节需要看https://docs.chainmaker.org.cn
 
 ./cmc client contract user create \\
 
---contract-name=fact \\
+--contract-name=fact \\ 
 
 --runtime-type=DOCKER_GO \\
 
@@ -52,4 +80,4 @@ go合约必须打包成.7z格式，细节需要看https://docs.chainmaker.org.cn
 
 # 远程连接说明
 
-需要将crypto-config文件夹和sdk_config.yml放置于资源目录下，这两天我写个springboot的chainmakerConfig的demo
+需要将crypto-config文件夹和sdk_config.yml放置于资源目录下，并修改sdk_config密钥的相关路径，这两天我写个springboot的chainmakerConfig的demo。
