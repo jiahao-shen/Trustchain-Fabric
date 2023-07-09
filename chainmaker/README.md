@@ -1,5 +1,11 @@
 # 链结构
 
+链：
+
+​	id：trustchain
+
+​	name：trustchain
+
 组织一：
 
 ​	id：public
@@ -31,6 +37,8 @@ sdk_config主要用组织public进行交易的发布，buaa组织为维护用的
 ## 智能合约相关
 
 go合约必须打包成.7z格式，细节需要看https://docs.chainmaker.org.cn/v2.3.1/html/instructions/%E4%BD%BF%E7%94%A8Golang%E8%BF%9B%E8%A1%8C%E6%99%BA%E8%83%BD%E5%90%88%E7%BA%A6%E5%BC%80%E5%8F%91.html
+
+下面所有命令都需要在/home/node5/Desktop/trustchain/tools/cmc下执行
 
 ### 部署GO合约
 
