@@ -14,17 +14,18 @@ import java.util.List;
 
 public class InitClient {
 
-    static final String ADMIN1_KEY_PATH = "crypto-config/public-trustchain/user/admin/admin.sign.key";
-    static final String ADMIN1_CERT_PATH = "crypto-config/public-trustchain/user/admin/admin.sign.crt";
+    static final String ROOT_PATH = "/Users/horatio/IdeaProjects/demo1/src/main/resources/";
+    static final String ADMIN1_KEY_PATH = "crypto-config/public/user/admin1/admin1.sign.key";
+    static final String ADMIN1_CERT_PATH = "crypto-config/public/user/admin1/admin1.sign.crt";
     static final String ADMIN2_KEY_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.sign.key";
     static final String ADMIN2_CERT_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.sign.crt";
 
-    static String ADMIN1_TLS_KEY_PATH = "crypto-config/public-trustchain/user/admin/admin.tls.key";
-    static String ADMIN1_TLS_CERT_PATH = "crypto-config/public-trustchain/user/admin/admin.tls.crt";
+    static String ADMIN1_TLS_KEY_PATH = "crypto-config/public/user/admin1/admin1.tls.key";
+    static String ADMIN1_TLS_CERT_PATH = "crypto-config/public/user/admin1/admin1.tls.crt";
     static String ADMIN2_TLS_KEY_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.tls.key";
     static String ADMIN2_TLS_CERT_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.tls.crt";
     
-    static final String ORG_ID1 = "public-trustchain";
+    static final String ORG_ID1 = "public";
     static final String ORG_ID2 = "buaa";
     static String SDK_CONFIG = "sdk_config.yml";
     public static ChainClient chainClient;
@@ -39,6 +40,7 @@ public class InitClient {
         sdkConfig = yaml.loadAs(in, SdkConfig.class);
         assert in != null;
         in.close();
+        //System.out.println("init chain success");
 
         for (NodeConfig nodeConfig : sdkConfig.getChainClient().getNodes()) {
             List<byte[]> tlsCaCertList = new ArrayList<>();
