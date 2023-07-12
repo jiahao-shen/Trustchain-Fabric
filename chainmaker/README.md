@@ -32,6 +32,16 @@
 
 sdk_config主要用组织public进行交易的发布，buaa组织为维护用的隐藏组织，不实际参与链的管理。
 
+检查链节点情况:
+
+```
+cat ./release/*/log/system.log |grep "ERROR\|put block\|all necessary"
+```
+
+```
+ps -ef|grep chainmaker | grep -v grep
+```
+
 # CMC工具使用说明
 
 ## 智能合约相关
