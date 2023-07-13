@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package chainmaker.sdk.demo;
 
 import org.chainmaker.sdk.ChainClient;
 import org.chainmaker.sdk.ChainManager;
@@ -14,24 +14,20 @@ import java.util.List;
 
 public class InitClient {
 
-    static final String ROOT_PATH = "/Users/horatio/IdeaProjects/demo1/src/main/resources/";
-    static final String ADMIN1_KEY_PATH = "crypto-config/public/user/admin1/admin1.sign.key";
-    static final String ADMIN1_CERT_PATH = "crypto-config/public/user/admin1/admin1.sign.crt";
-    static final String ADMIN2_KEY_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.sign.key";
-    static final String ADMIN2_CERT_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.sign.crt";
+    static final String CLIENT1_KEY_PATH = "crypto-config/org5.cmtestnet/user/client/javasdk.sign.key";
+    static final String CLIENT1_CERT_PATH = "crypto-config/org5.cmtestnet/user/client/javasdk.sign.crt";
 
-    static String ADMIN1_TLS_KEY_PATH = "crypto-config/public/user/admin1/admin1.tls.key";
-    static String ADMIN1_TLS_CERT_PATH = "crypto-config/public/user/admin1/admin1.tls.crt";
-    static String ADMIN2_TLS_KEY_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.tls.key";
-    static String ADMIN2_TLS_CERT_PATH = "crypto-config/buaa/user/buaaAdmin/buaaAdmin.tls.crt";
-    
-    static final String ORG_ID1 = "public";
-    static final String ORG_ID2 = "buaa";
+    static String CLIENT1_TLS_KEY_PATH = "crypto-config/org5.cmtestnet/user/client/javasdk.tls.key";
+    static String CLIENT1_TLS_CERT_PATH = "crypto-config/org5.cmtestnet/user/client/javasdk.tls.crt";
+
+    static final String ORG_ID1 = "org5.cmtestnet";
+
     static String SDK_CONFIG = "sdk_config.yml";
-    public static ChainClient chainClient;
+
+    static ChainClient chainClient;
     static ChainManager chainManager;
-    public static User adminUser1;
-    public static User adminUser2;
+    static User user;
+
     public static void inItChainClient() throws Exception {
         Yaml yaml = new Yaml();
         InputStream in = InitClient.class.getClassLoader().getResourceAsStream(SDK_CONFIG);
@@ -40,7 +36,6 @@ public class InitClient {
         sdkConfig = yaml.loadAs(in, SdkConfig.class);
         assert in != null;
         in.close();
-        //System.out.println("init chain success");
 
         for (NodeConfig nodeConfig : sdkConfig.getChainClient().getNodes()) {
             List<byte[]> tlsCaCertList = new ArrayList<>();
@@ -64,14 +59,9 @@ public class InitClient {
             chainClient = chainManager.createChainClient(sdkConfig);
         }
 
-        adminUser1 = new User(ORG_ID1, FileUtils.getResourceFileBytes(ADMIN1_KEY_PATH),
-                FileUtils.getResourceFileBytes(ADMIN1_CERT_PATH),
-                FileUtils.getResourceFileBytes(ADMIN1_TLS_KEY_PATH),
-                FileUtils.getResourceFileBytes(ADMIN1_TLS_CERT_PATH));
-
-        adminUser2 = new User(ORG_ID2, FileUtils.getResourceFileBytes(ADMIN2_KEY_PATH),
-                FileUtils.getResourceFileBytes(ADMIN2_CERT_PATH),
-                FileUtils.getResourceFileBytes(ADMIN2_TLS_KEY_PATH),
-                FileUtils.getResourceFileBytes(ADMIN2_TLS_CERT_PATH));
+        user = new User(ORG_ID1, FileUtils.getResourceFileBytes(CLIENT1_KEY_PATH),
+                FileUtils.getResourceFileBytes(CLIENT1_CERT_PATH),
+                FileUtils.getResourceFileBytes(CLIENT1_TLS_KEY_PATH),
+                FileUtils.getResourceFileBytes(CLIENT1_TLS_CERT_PATH), false);
     }
 }

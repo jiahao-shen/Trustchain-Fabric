@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package chainmaker.sdk.demo;
 
 import org.chainmaker.pb.config.ChainConfigOuterClass;
 import org.chainmaker.sdk.ChainClient;
