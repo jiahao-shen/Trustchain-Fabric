@@ -1,3 +1,14 @@
+# 链部署说明
+
+部署链需要开启vm_go以适配go语言智能合约，如果出现rpc拒绝访问（服务器无法绑定容器）的情况，需要将docker降级至18，或者将cgroup降级到c1，降级方法如下：https://docs.docker.com/config/containers/runmetrics/#changing-cgroup-version
+
+```shell
+# vim /etc/default/grub
+GRUB_CMDLINE_LINUX="systemd.unified_cgroup_hierarchy=0" 
+# update-grup
+# reboot
+```
+
 # 链结构
 
 链：
