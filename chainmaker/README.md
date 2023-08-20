@@ -1,13 +1,18 @@
 # 链部署说明
 
-部署链需要开启vm_go以适配go语言智能合约，如果出现rpc拒绝访问（服务器无法绑定容器）的情况，需要将docker降级至18，或者将cgroup降级到c1，降级方法如下：https://docs.docker.com/config/containers/runmetrics/#changing-cgroup-version
+部署链需要开启vm_go以适配go语言智能合约，如果出现rpc拒绝访问（服务器无法绑定容器）的情况，需要将docker降级至18，或者将cgroup2降级到c1，降级方法如下：https://docs.docker.com/config/containers/runmetrics/#changing-cgroup-version
 
 ```shell
+# docker info | grep Cgroup
 # vim /etc/default/grub
 GRUB_CMDLINE_LINUX="systemd.unified_cgroup_hierarchy=0" 
 # update-grup
 # reboot
 ```
+
+glibc版本需要在2.18以上，如果出现glibc版本过低的问题，考虑到glibc升级的繁琐，最好将系统升级，如腾讯云默认的ubuntu18.04是不符合要求的。
+
+golang版本需要在1.16以上。
 
 # 链结构
 
@@ -45,11 +50,11 @@ sdk_config主要用组织public进行交易的发布，buaa组织为维护用的
 
 检查链节点情况:
 
-```
+```shell
 cat ./release/*/log/system.log |grep "ERROR\|put block\|all necessary"
 ```
 
-```
+```shell
 ps -ef|grep chainmaker | grep -v grep
 ```
 
