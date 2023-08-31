@@ -1,68 +1,46 @@
 chain_client:
   # 链ID
-  chain_id: "chainmaker_testnet_chain"
+  chain_id: "trustchain"
   # 组织ID
-  org_id: "org5.cmtestnet"
+  org_id: "public"
   # 客户端用户私钥路径
-  user_key_file_path: "src/main/resources/crypto-config/org5.cmtestnet/user/client/javasdk.tls.key"
+  user_key_file_path: "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/user/client1/client1.tls.key"
   # 客户端用户证书路径
-  user_crt_file_path: "src/main/resources/crypto-config/org5.cmtestnet/user/client/javasdk.tls.crt"
+  user_crt_file_path: "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/user/client1/client1.tls.crt"
   # 客户端用户交易签名私钥路径(若未设置，将使用user_key_file_path)
-  user_sign_key_file_path: "src/main/resources/crypto-config/org5.cmtestnet/user/client/javasdk.sign.key"
+  user_sign_key_file_path: "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/user/client1/client1.sign.key"
   # 客户端用户交易签名证书路径(若未设置，将使用user_crt_file_path)
-  user_sign_crt_file_path: "src/main/resources/crypto-config/org5.cmtestnet/user/client/javasdk.sign.crt"
+  user_sign_crt_file_path: "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/user/client1/client1.sign.crt"
+  # 同步交易结果模式下，轮询获取交易结果时的最大轮询次数，删除此项或设为<=0则使用默认值 10
+  retry_limit: 50
+  # 同步交易结果模式下，每次轮询交易结果时的等待时间，单位：ms 删除此项或设为<=0则使用默认值 500
+  retry_interval: 100
 
-  retry_limit: 10
-  # 同步交易结果模式下，每次轮训交易结果时的等待时间，单位：ms 删除此项或设为<=0则使用默认值 500
-  retry_interval: 500
-  # 当前签名证书的别名。当设置此配置项时，chain client 对象将自动检查链上是否已添加此别名，如果没有则自动上链此证书别名，
-  # 并且后续所有交易都会使用别名，别名可降低交易体大小。若为空则不启用。
-  #  alias: mycert5
   nodes:
-    - # 节点地址，格式为：IP:端口:连接数
-      node_addr: "152.136.217.46:12302"
+    - # 节点地址，格式为：IP:端口:连接数 Peer1
+      node_addr: "192.168.0.160:20201"
       # 节点连接数
       conn_cnt: 10
       # RPC连接是否启用双向TLS认证
       enable_tls: true
       # 信任证书池路径
       trust_root_paths:
-        - "src/main/resources/crypto-config/org5.cmtestnet/ca/org1.cmtestnet"
+        - "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/ca"
+        - "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/buaa/ca"
       # TLS hostname
-      tls_host_name: "common1.tls.org1.cmtestnet"
-    - # 节点地址，格式为：IP:端口:连接数
-      node_addr: "49.232.86.161:12302"
+      tls_host_name: "chainmaker.org"
+    - # 节点地址，格式为：IP:端口:连接数 Peer2
+      node_addr: "192.168.0.144:20201"
       # 节点连接数
       conn_cnt: 10
       # RPC连接是否启用双向TLS认证
       enable_tls: true
       # 信任证书池路径
       trust_root_paths:
-        - "src/main/resources/crypto-config/org5.cmtestnet/ca/org2.cmtestnet"
+        - "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/public/ca"
+        - "/Users/horatio/IdeaProjects/sdk-java-demo-v2.3.0_online_opennet/src/main/resources/crypto-config/buaa/ca"
       # TLS hostname
-      tls_host_name: "common1.tls.org2.cmtestnet"
-    - # 节点地址，格式为：IP:端口:连接数
-      node_addr: "82.157.120.56:12302"
-      # 节点连接数
-      conn_cnt: 10
-      # RPC连接是否启用双向TLS认证
-      enable_tls: true
-      # 信任证书池路径
-      trust_root_paths:
-        - "src/main/resources/crypto-config/org5.cmtestnet/ca/org3.cmtestnet"
-      # TLS hostname
-      tls_host_name: "common1.tls.org3.cmtestnet"
-    - # 节点地址，格式为：IP:端口:连接数
-      node_addr: "152.136.210.129:12302"
-      # 节点连接数
-      conn_cnt: 10
-      # RPC连接是否启用双向TLS认证
-      enable_tls: true
-      # 信任证书池路径
-      trust_root_paths:
-        - "src/main/resources/crypto-config/org5.cmtestnet/ca/org4.cmtestnet"
-      # TLS hostname
-      tls_host_name: "common1.tls.org4.cmtestnet"
+      tls_host_name: "chainmaker.org"
   archive:
     # 数据归档链外存储相关配置
     type: "mysql"
@@ -95,4 +73,3 @@ chain_client:
     blockWhenExhausted: true
     #当没有空闲连接时，获取连接阻塞等待时间，单位：ms
     maxWaitMillis: 3000
-

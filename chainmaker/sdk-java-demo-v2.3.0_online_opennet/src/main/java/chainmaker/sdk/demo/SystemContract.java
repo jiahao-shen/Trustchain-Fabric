@@ -8,7 +8,7 @@ public class SystemContract {
     public static void getBlockByHeight(ChainClient chainClient) {
         ChainmakerBlock.BlockInfo blockInfo = null;
         try {
-            blockInfo = chainClient.getBlockByHeight(3, false, 10000);
+            blockInfo = chainClient.getBlockByHeight(1, false, 10000);
         } catch (Exception e) {
             e.printStackTrace();
         }

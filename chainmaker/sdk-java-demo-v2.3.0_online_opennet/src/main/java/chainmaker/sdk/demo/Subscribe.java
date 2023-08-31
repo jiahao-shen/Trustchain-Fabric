@@ -38,6 +38,7 @@ public class Subscribe extends InitClient implements Runnable {
             @Override
             public void onCompleted() {
                 // just do nothing
+                System.out.println("complete");
             }
         };
 

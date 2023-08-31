@@ -56,6 +56,7 @@ public class InitClient {
         chainClient = chainManager.getChainClient(sdkConfig.getChainClient().getChainId());
 
         if (chainClient == null) {
+            System.out.println("create client");
             chainClient = chainManager.createChainClient(sdkConfig);
         }
 

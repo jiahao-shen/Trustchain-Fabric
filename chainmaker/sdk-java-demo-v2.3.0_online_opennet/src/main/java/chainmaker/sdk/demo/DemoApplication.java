@@ -11,17 +11,20 @@ public class DemoApplication  {
         SpringApplication.run(DemoApplication.class, args);
         inItChainClient();
         //查询链配置
-        ChainConfig.getChainConfig(InitClient.chainClient);
-//        //创建合约
+//        ChainConfig.getChainConfig(InitClient.chainClient);
+
+        //创建合约
 //        Contract.createContract(InitClient.chainClient, InitClient.user);
-//        //调用合约
-//        Contract.invokeContract(InitClient.chainClient);
-//        //查询合约
-//        Contract.queryContract(InitClient.chainClient);
+
+        //调用合约
+//        Contract.invokeContractSave(InitClient.chainClient);
+//        Contract.invokeContractFind(InitClient.chainClient);
+//        SystemContract.getBlockByHeight(InitClient.chainClient);
+
         //订阅区块
-//        new Thread(new Subscribe()).start();
+        new Thread(new Subscribe()).start();
         //等待订阅
-//        Thread.sleep(1000 * 10);
+        Thread.sleep(1000 * 10);
 
         //退出
         System.exit(0);

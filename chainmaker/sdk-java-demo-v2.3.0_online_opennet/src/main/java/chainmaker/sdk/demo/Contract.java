@@ -8,22 +8,34 @@ import org.chainmaker.sdk.User;
 import org.chainmaker.sdk.utils.FileUtils;
 import org.chainmaker.sdk.utils.SdkUtils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Contract {
 
     private static final String QUERY_CONTRACT_METHOD = "query";
-    private static final String INVOKE_CONTRACT_METHOD = "increase";
-    private static final String CONTRACT_NAME = "counter_sdk_java_demo";
-    private static final String CONTRACT_FILE_PATH = "rust-fact-1.0.0.wasm";
+    private static final String INVOKE_CONTRACT_METHOD_SAVE = "save";
+    private static final String INVOKE_CONTRACT_METHOD_FIND = "findByFileHash";
+    private static final Map<String, byte[]> SAVE_PARAMS = new HashMap<String, byte[]>() {{
+        put("file_name", "name007".getBytes());
+        put("file_hash", "ab3456df5799b87c77e7f88".getBytes());
+        put("time", "6543234".getBytes());
+    }};
+    private static final Map<String, byte[]> QUERY_PARAMS = new HashMap<String, byte[]>() {{
+        put("file_hash", "ab3456df5799b87c77e7f88".getBytes());
+    }};
+    private static final String CONTRACT_NAME = "fact";
+    private static final String CONTRACT_FILE_PATH = "docker-fact.7z";
 
     public static void createContract(ChainClient chainClient, User user) {
         ResultOuterClass.TxResponse responseInfo = null;
         try {
             byte[] byteCode = FileUtils.getResourceFileBytes(CONTRACT_FILE_PATH);
 
-            // 1. create payload
+            // 1. create payload （DOCKER_GO控制合约类型）
             Request.Payload payload = chainClient.createContractCreatePayload(CONTRACT_NAME, "1", byteCode,
-                    ContractOuterClass.RuntimeType.WASMER, null);
+                    ContractOuterClass.RuntimeType.DOCKER_GO, null);
             //2. create payloads with endorsement
             Request.EndorsementEntry[] endorsementEntries = SdkUtils
                     .getEndorsers(payload, new User[]{user});
@@ -36,11 +48,11 @@ public class Contract {
         System.out.println("创建合约结果：");
         System.out.println(responseInfo);
     }
-    public static void invokeContract(ChainClient chainClient) {
+    public static void invokeContractSave(ChainClient chainClient) {
         ResultOuterClass.TxResponse responseInfo = null;
         try {
-            responseInfo = chainClient.invokeContract(CONTRACT_NAME, INVOKE_CONTRACT_METHOD,
-                    null, null,10000, 10000);
+            responseInfo = chainClient.invokeContract(CONTRACT_NAME, INVOKE_CONTRACT_METHOD_SAVE,
+                    null, SAVE_PARAMS,10000, 10000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,15 +60,16 @@ public class Contract {
         System.out.println(responseInfo);
     }
 
-    public static void queryContract(ChainClient chainClient) {
+    public static void invokeContractFind(ChainClient chainClient) {
         ResultOuterClass.TxResponse responseInfo = null;
         try {
-            responseInfo = chainClient.queryContract(CONTRACT_NAME, QUERY_CONTRACT_METHOD,
-                    null,  null,10000);
+            responseInfo = chainClient.invokeContract(CONTRACT_NAME, INVOKE_CONTRACT_METHOD_FIND,
+                    null, QUERY_PARAMS,10000, 10000);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("查询合约结果：");
+        System.out.println("执行合约结果：");
         System.out.println(responseInfo);
     }
+
 }
