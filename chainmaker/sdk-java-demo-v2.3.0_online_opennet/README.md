@@ -1,7 +1,5 @@
 # 后端链接说明
 
-JAVA版本目前测试下来只有JDK1.8_202下能够正常访问，下载链接见[Index of java-local/jdk/8u202-b08 (huaweicloud.com)](https://repo.huaweicloud.com/java/jdk/8u202-b08/)
-
 # MAVEN
 
 需要将lib中的netty-tcnative-openssl包手动加载到项目中
