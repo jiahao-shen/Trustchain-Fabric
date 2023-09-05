@@ -205,3 +205,82 @@ find /home/node4/Desktop/trustchain/release/buaa-peer3/log/ -mtime +3 -exec rm -
 crontab -e
 ```
 
+# docker-fact.7z接口说明
+
+## 1.save
+
+### 1.1 参数
+
+```java
+private static final Map<String, byte[]> SAVE_PARAMS = new HashMap<String, byte[]>() {{
+        put("file_name", "name007".getBytes());
+        put("file_hash", "ab3456df5799b87c77e7f88".getBytes());
+        put("time", "6543234".getBytes());
+    }};
+```
+
+该方法参数为
+
+```json
+{
+  "file_name":"name007",
+  "file_hash":"ab3456df5799b87c77e7f88",
+  "time":"6543234",
+}
+```
+
+即合约中的方法需要上述三个参数，但是后端在调用过程中将其打包成一个完整的json文件发送即可。
+
+### 1.2 示例
+
+```java
+public static void invokeContractSave(ChainClient chainClient) {
+        ResultOuterClass.TxResponse responseInfo = null;
+        try {
+          // 下属参数分别为：调用的合约的名称，调用的合约内的方法名称，指定交易id，方法执行参数，rpc超时时间，同步超时时间
+            responseInfo = chainClient.invokeContract("docker-fact.7z", "save",
+                    null, SAVE_PARAMS,10000, 10000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+---
+
+## 2.findFileByHash
+
+### 2.1 参数
+
+```java
+private static final Map<String, byte[]> QUERY_PARAMS = new HashMap<String, byte[]>() {{
+        put("file_hash", "ab3456df5799b87c77e7f88".getBytes());
+    }};
+```
+
+该方法参数为
+
+```json
+{
+  "file_hash":"ab3456df5799b87c77e7f88",
+}
+```
+
+根据save方法的文件哈希获得整个值。
+
+### 2.2 示例
+
+```java
+public static void invokeContractFind(ChainClient chainClient) {
+        ResultOuterClass.TxResponse responseInfo = null;
+        try {
+          // 下属参数分别为：调用的合约的名称，调用的合约内的方法名称，指定交易id，方法执行参数，rpc超时时间，同步超时时间
+            responseInfo = chainClient.invokeContract("docker-fact.7z", "findFileByHash",
+                    null, QUERY_PARAMS,10000, 10000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+```
+
