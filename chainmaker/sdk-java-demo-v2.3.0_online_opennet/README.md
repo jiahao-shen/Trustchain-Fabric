@@ -193,3 +193,17 @@ JAVA版本目前测试下来只有JDK1.8_202下能够正常访问，下载链接
 
 需要手动生成sdk_config.yml，并在里面修改证书的相关路径，命名结构还需商议。
 
+## 3. 日志清理
+
+服务器新加入节点后需要定时清理节点产生的日志文件，清理脚本位于/home/node4/Desktop/trustchain/clean.sh（以node5服务器为例）
+
+```shell
+find /home/node4/Desktop/trustchain/release/buaa-peer3/log/ -mtime +3 -exec rm -rf {} \;
+```
+
+定时任务通过下述命令进行修改
+
+```shell
+crontab -e
+```
+
